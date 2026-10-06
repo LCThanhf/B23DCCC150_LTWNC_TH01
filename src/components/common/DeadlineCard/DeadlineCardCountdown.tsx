@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Tag } from 'antd';
+import { Tag } from 'antd';
 import {
   AlertFilled,
   CheckCircleFilled,
@@ -29,10 +29,6 @@ export const DeadlineCardCountdown: React.FC = () => {
 
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center' }}>
-      <Badge
-        status={deadlineInfo.badgeStatus}
-        style={{ marginRight: 6 }}
-      />
       <Tag
         color={deadlineInfo.tagColor}
         icon={getIcon()}
