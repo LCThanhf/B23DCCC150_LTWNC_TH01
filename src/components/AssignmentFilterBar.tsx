@@ -1,10 +1,6 @@
 import React from 'react';
 import { Badge, Card, Col, Input, Radio, Row, Select, Space } from 'antd';
-import {
-  FilterOutlined,
-  SearchOutlined,
-  SortAscendingOutlined,
-} from '@ant-design/icons';
+import { SearchOutlined, SortAscendingOutlined } from '@ant-design/icons';
 import type { FilterStatsMap, FilterStatus, SortByOption, SortDirection } from '../types/assignment';
 
 interface AssignmentFilterBarProps {
@@ -13,9 +9,6 @@ interface AssignmentFilterBarProps {
   stats: FilterStatsMap;
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  availableSubjects: string[];
-  selectedSubject: string | null;
-  onSubjectChange: (subject: string | null) => void;
   sortBy: SortByOption;
   sortDirection: SortDirection;
   onSortChange: (sortBy: SortByOption, direction: SortDirection) => void;
@@ -27,9 +20,6 @@ export const AssignmentFilterBar: React.FC<AssignmentFilterBarProps> = ({
   stats,
   searchQuery,
   onSearchChange,
-  availableSubjects,
-  selectedSubject,
-  onSubjectChange,
   sortBy,
   sortDirection,
   onSortChange,
@@ -90,7 +80,7 @@ export const AssignmentFilterBar: React.FC<AssignmentFilterBarProps> = ({
 
         <Col xs={24} lg={10}>
           <Row gutter={[8, 8]}>
-            <Col xs={24} sm={12}>
+            <Col xs={24} sm={14}>
               <Input
                 placeholder="Tìm bài tập hoặc môn học..."
                 prefix={<SearchOutlined style={{ color: '#bfbfbf' }} />}
@@ -101,19 +91,7 @@ export const AssignmentFilterBar: React.FC<AssignmentFilterBarProps> = ({
               />
             </Col>
 
-            <Col xs={12} sm={6}>
-              <Select
-                placeholder="Môn học"
-                value={selectedSubject ?? undefined}
-                onChange={(val) => onSubjectChange(val ?? null)}
-                allowClear
-                style={{ width: '100%' }}
-                suffixIcon={<FilterOutlined />}
-                options={availableSubjects.map((s) => ({ label: s, value: s }))}
-              />
-            </Col>
-
-            <Col xs={12} sm={6}>
+            <Col xs={24} sm={10}>
               <Select
                 value={currentSortKey}
                 onChange={handleSortSelect}

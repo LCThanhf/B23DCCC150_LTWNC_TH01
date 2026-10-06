@@ -9,7 +9,6 @@ import {
   resetAssignmentsThunk,
   setFilterStatus,
   setSearchQuery,
-  setSelectedSubject,
   setSortBy,
   setSortDirection,
   updateAssignmentThunk,
@@ -161,9 +160,6 @@ const App: React.FC = () => {
             stats={stats}
             searchQuery={searchQuery}
             onSearchChange={(q) => dispatch(setSearchQuery(q))}
-            availableSubjects={availableSubjects}
-            selectedSubject={selectedSubject}
-            onSubjectChange={(s) => dispatch(setSelectedSubject(s))}
             sortBy={sortBy}
             sortDirection={sortDirection}
             onSortChange={(field, dir) => {
