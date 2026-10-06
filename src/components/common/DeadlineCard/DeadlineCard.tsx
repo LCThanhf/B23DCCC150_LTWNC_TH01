@@ -14,17 +14,6 @@ export interface DeadlineCardProps {
   className?: string;
 }
 
-/**
- * ============================================================================
- * BUỔI 2: COMPOUND COMPONENT PATTERN — DeadlineCard (Root Component)
- * ============================================================================
- * Đóng vai trò Context Provider để chia sẻ trạng thái cho các sub-components:
- * - DeadlineCard.Header
- * - DeadlineCard.Title
- * - DeadlineCard.Countdown
- * - DeadlineCard.Meta
- * - DeadlineCard.Actions
- */
 export const DeadlineCardRoot: React.FC<DeadlineCardProps> = ({
   assignment,
   onToggleComplete,
@@ -36,18 +25,17 @@ export const DeadlineCardRoot: React.FC<DeadlineCardProps> = ({
 }) => {
   const deadlineInfo = useDeadlineCountdown(assignment.dueDate, assignment.completed);
 
-  // Đường viền trái tạo điểm nhấn phân biệt trạng thái hạn nộp
   const getBorderLeftColor = () => {
-    if (assignment.completed) return '#52c41a'; // Xanh lá
+    if (assignment.completed) return '#52c41a';
     switch (deadlineInfo.urgency) {
       case 'OVERDUE':
-        return '#ff4d4f'; // Đỏ quá hạn
+        return '#ff4d4f';
       case 'DUE_TODAY':
-        return '#fa541c'; // Cam đậm hôm nay
+        return '#fa541c';
       case 'DUE_SOON':
-        return '#faad14'; // Vàng sắp đến hạn
+        return '#faad14';
       default:
-        return '#1677ff'; // Xanh dương bình thường
+        return '#1677ff';
     }
   };
 

@@ -1,9 +1,6 @@
 import dayjs from 'dayjs';
 import type { DeadlineInfo, PriorityConfigMap } from '../types/assignment';
 
-/**
- * Cấu hình hiển thị theo mức độ ưu tiên (Sử dụng Record Utility Type)
- */
 export const PRIORITY_CONFIG: PriorityConfigMap = {
   HIGH: {
     label: 'Cao',
@@ -25,10 +22,6 @@ export const PRIORITY_CONFIG: PriorityConfigMap = {
   },
 };
 
-/**
- * Tính toán trạng thái deadline:
- * Yêu cầu chức năng 6: "Mỗi bài tập hiển thị 'Còn X ngày' hoặc 'Quá hạn Y ngày'"
- */
 export function calculateDeadlineInfo(dueDate: string, completed: boolean = false): DeadlineInfo {
   if (completed) {
     return {
@@ -94,9 +87,6 @@ export function calculateDeadlineInfo(dueDate: string, completed: boolean = fals
   };
 }
 
-/**
- * Format ngày hiển thị thân thiện (VD: "Thứ Hai, 12/10/2026")
- */
 export function formatDisplayDate(dateStr: string): string {
   if (!dateStr) return '';
   return dayjs(dateStr).format('DD/MM/YYYY');

@@ -20,17 +20,6 @@ interface UseAssignmentFilterProps {
   sortDirection: SortDirection;
 }
 
-/**
- * ============================================================================
- * BUỔI 2: CUSTOM HOOK NÂNG CAO — useAssignmentFilter
- * ============================================================================
- * Quản lý logic lọc phức tạp:
- * 1. Lọc theo trạng thái: Tất cả / Chưa hoàn thành / Quá hạn / Đã hoàn thành (Yêu cầu 5)
- * 2. Tìm kiếm theo tiêu đề bài tập hoặc tên môn học
- * 3. Lọc theo môn học cụ thể
- * 4. Sắp xếp theo hạn nộp, mức độ ưu tiên, môn học hoặc tiêu đề
- * 5. Tính toán các chỉ số thống kê (Stats: Total, Pending, Overdue, Completed)
- */
 export function useAssignmentFilter({
   assignments,
   filterStatus,
@@ -39,7 +28,6 @@ export function useAssignmentFilter({
   sortBy,
   sortDirection,
 }: UseAssignmentFilterProps) {
-  // 1. Thống kê số lượng theo từng trạng thái (Sử dụng FilterStatsMap)
   const stats: FilterStatsMap = useMemo(() => {
     let pending = 0;
     let overdue = 0;
@@ -63,7 +51,6 @@ export function useAssignmentFilter({
     };
   }, [assignments]);
 
-  // 2. Danh sách tất cả môn học duy nhất (cho bộ lọc môn học)
   const availableSubjects = useMemo(() => {
     const set = new Set<string>();
     assignments.forEach((a) => {
@@ -74,22 +61,17 @@ export function useAssignmentFilter({
     return Array.from(set).sort((a, b) => a.localeCompare(b, 'vi'));
   }, [assignments]);
 
-  // 3. Tiến hành lọc & sắp xếp
   const filteredAssignments = useMemo(() => {
     return assignments
       .filter((item) => {
-        // Lọc theo trạng thái (Yêu cầu 5)
         switch (filterStatus) {
           case 'PENDING':
-            // Chưa hoàn thành & chưa quá hạn
             if (item.completed || isAssignmentOverdue(item)) return false;
             break;
           case 'OVERDUE':
-            // Quá hạn
             if (!isAssignmentOverdue(item)) return false;
             break;
           case 'COMPLETED':
-            // Đã hoàn thành
             if (!item.completed) return false;
             break;
           case 'ALL':
@@ -97,12 +79,10 @@ export function useAssignmentFilter({
             break;
         }
 
-        // Lọc theo môn học
         if (selectedSubject && item.subject !== selectedSubject) {
           return false;
         }
 
-        // Lọc theo từ khoá tìm kiếm
         if (searchQuery.trim()) {
           const query = searchQuery.trim().toLowerCase();
           const matchTitle = item.title.toLowerCase().includes(query);
@@ -116,7 +96,6 @@ export function useAssignmentFilter({
         return true;
       })
       .sort((a, b) => {
-        // Xử lý sắp xếp tuỳ chỉnh theo các trường
         if (sortBy === 'priority') {
           const weightA = PRIORITY_CONFIG[a.priority as PriorityLevel]?.weight ?? 0;
           const weightB = PRIORITY_CONFIG[b.priority as PriorityLevel]?.weight ?? 0;
@@ -129,7 +108,6 @@ export function useAssignmentFilter({
           return sortDirection === 'asc' ? timeA - timeB : timeB - timeA;
         }
 
-        // Sắp xếp Generic theo title hoặc subject
         return sortByGeneric([a, b], sortBy, sortDirection)[0] === a ? -1 : 1;
       });
   }, [assignments, filterStatus, selectedSubject, searchQuery, sortBy, sortDirection]);

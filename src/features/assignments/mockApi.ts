@@ -96,11 +96,6 @@ function saveStoredAssignments(assignments: Assignment[]): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(assignments));
 }
 
-/**
- * ============================================================================
- * MOCK API SERVICE (Mô phỏng server RESTful API với độ trễ mạng)
- * ============================================================================
- */
 export const assignmentMockApi = {
   /**
    * Lấy toàn bộ danh sách bài tập (Simulate GET /api/assignments)

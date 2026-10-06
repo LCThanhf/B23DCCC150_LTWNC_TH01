@@ -46,7 +46,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
 
   const isEditing = Boolean(editingAssignment);
 
-  // Default subject options
   const defaultSubjects = [
     'Lập trình Web nâng cao',
     'Cơ sở dữ liệu phân tán',
@@ -109,7 +108,7 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
       confirmLoading={loading}
       okText={isEditing ? 'Lưu thay đổi' : 'Thêm bài tập'}
       cancelText="Huỷ bỏ"
-      destroyOnClose
+      destroyOnHidden
       centered
       width={540}
     >
@@ -120,7 +119,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
         requiredMark="optional"
         style={{ marginTop: '16px' }}
       >
-        {/* 1. Môn học (Yêu cầu 2) */}
         <Form.Item
           label="Môn học"
           name="subject"
@@ -138,7 +136,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
           />
         </Form.Item>
 
-        {/* 2. Tên bài tập (Yêu cầu 2) */}
         <Form.Item
           label="Tên bài tập"
           name="title"
@@ -150,7 +147,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
           <Input placeholder="VD: Hoàn thành Assignment 3 - Redux Toolkit" maxLength={150} showCount />
         </Form.Item>
 
-        {/* 3. Hạn nộp & Độ ưu tiên (Yêu cầu 2) */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
           <Form.Item
             label="Hạn nộp deadline"
@@ -187,7 +183,6 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
           </Form.Item>
         </div>
 
-        {/* 4. Ghi chú thêm */}
         <Form.Item label="Ghi chú / Yêu cầu chi tiết" name="description">
           <Input.TextArea
             rows={3}

@@ -22,7 +22,6 @@ export const DeadlineCardActions: React.FC = () => {
       }}
     >
       <Space size={6}>
-        {/* Nút đánh dấu hoàn thành / bỏ đánh dấu (Yêu cầu 3) */}
         <Tooltip title={assignment.completed ? 'Bỏ đánh dấu hoàn thành' : 'Đánh dấu đã hoàn thành'}>
           <Button
             size="small"
@@ -44,7 +43,6 @@ export const DeadlineCardActions: React.FC = () => {
           </Button>
         </Tooltip>
 
-        {/* Nút chỉnh sửa bài tập */}
         {onEdit && (
           <Tooltip title="Chỉnh sửa bài tập">
             <Button
@@ -57,7 +55,6 @@ export const DeadlineCardActions: React.FC = () => {
           </Tooltip>
         )}
 
-        {/* Nút xoá bài tập kèm Popconfirm xác nhận (Yêu cầu 4) */}
         <Popconfirm
           title="Xoá bài tập"
           description={`Bạn có chắc chắn muốn xoá bài tập "${assignment.title}"?`}

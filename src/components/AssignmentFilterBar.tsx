@@ -34,7 +34,6 @@ export const AssignmentFilterBar: React.FC<AssignmentFilterBarProps> = ({
   sortDirection,
   onSortChange,
 }) => {
-  // Sort composite key
   const currentSortKey = `${sortBy}_${sortDirection}`;
 
   const handleSortSelect = (value: string) => {
@@ -52,7 +51,6 @@ export const AssignmentFilterBar: React.FC<AssignmentFilterBarProps> = ({
       styles={{ body: { padding: '16px' } }}
     >
       <Row gutter={[16, 16]} align="middle">
-        {/* Bộ lọc trạng thái (Yêu cầu 5) */}
         <Col xs={24} lg={14}>
           <Radio.Group
             value={filterStatus}
@@ -90,7 +88,6 @@ export const AssignmentFilterBar: React.FC<AssignmentFilterBarProps> = ({
           </Radio.Group>
         </Col>
 
-        {/* Thanh tìm kiếm & bộ lọc bổ sung */}
         <Col xs={24} lg={10}>
           <Row gutter={[8, 8]}>
             <Col xs={24} sm={12}>
@@ -107,15 +104,12 @@ export const AssignmentFilterBar: React.FC<AssignmentFilterBarProps> = ({
             <Col xs={12} sm={6}>
               <Select
                 placeholder="Môn học"
-                value={selectedSubject}
-                onChange={onSubjectChange}
+                value={selectedSubject ?? undefined}
+                onChange={(val) => onSubjectChange(val ?? null)}
                 allowClear
                 style={{ width: '100%' }}
                 suffixIcon={<FilterOutlined />}
-                options={[
-                  { label: 'Tất cả môn', value: null },
-                  ...availableSubjects.map((s) => ({ label: s, value: s })),
-                ]}
+                options={availableSubjects.map((s) => ({ label: s, value: s }))}
               />
             </Col>
 

@@ -6,13 +6,6 @@ export interface WithUrgencyProps {
   assignment: Assignment;
 }
 
-/**
- * ============================================================================
- * BUỔI 2: HIGHER-ORDER COMPONENT (HOC) PATTERN — withUrgencyHighlight
- * ============================================================================
- * Bọc một component bất kỳ để thêm hiệu ứng glow viền khi bài tập bị quá hạn
- * hoặc sắp đến hạn khẩn cấp.
- */
 export function withUrgencyHighlight<P extends WithUrgencyProps>(
   WrappedComponent: React.ComponentType<P>
 ): React.FC<P> {

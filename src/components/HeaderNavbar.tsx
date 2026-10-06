@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, Popover, Space, Tag, Tooltip, Typography } from 'antd';
+import { Button, Space, Tag, Tooltip, Typography } from 'antd';
 import {
   CheckSquareFilled,
-  InfoCircleOutlined,
   MoonOutlined,
   PlusOutlined,
   ReloadOutlined,
@@ -26,23 +25,6 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({
   onResetMockData,
   resetLoading,
 }) => {
-  const projectInfoContent = (
-    <div style={{ maxWidth: '340px' }}>
-      <Typography.Title level={5} style={{ marginTop: 0, marginBottom: 8 }}>
-        📚 Student Deadline Tracker
-      </Typography.Title>
-      <p style={{ fontSize: '13px', margin: '4px 0' }}>
-        <strong>Buổi 1 — TypeScript nâng cao:</strong> Generics (<code>ApiResponse&lt;T&gt;</code>, <code>sortByGeneric</code>), Utility Types (<code>Omit</code>, <code>Pick</code>, <code>Partial</code>, <code>Record</code>), Type Guards (<code>isAssignment</code>, <code>isPriority</code>, <code>isAssignmentOverdue</code>).
-      </p>
-      <p style={{ fontSize: '13px', margin: '4px 0' }}>
-        <strong>Buổi 2 — React Design Patterns:</strong> Custom hooks nâng cao (<code>useDeadlineCountdown</code>, <code>useAssignmentFilter</code>), Compound Component (<code>DeadlineCard</code> với các sub-components Header, Title, Countdown, Meta, Actions) & HOC (<code>withUrgencyHighlight</code>).
-      </p>
-      <p style={{ fontSize: '13px', margin: '4px 0' }}>
-        <strong>Buổi 3 — Redux Toolkit:</strong> Feature-based architecture, Typed Hooks (<code>useAppDispatch</code>, <code>useAppSelector</code>), <code>createAsyncThunk</code> xử lý bất đồng bộ từ Mock API giả lập.
-      </p>
-    </div>
-  );
-
   return (
     <header
       style={{
@@ -60,7 +42,6 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({
         gap: '12px',
       }}
     >
-      {/* Brand logo & Title */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div
           style={{
@@ -93,14 +74,7 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({
         </div>
       </div>
 
-      {/* Actions */}
       <Space size={10} wrap>
-        {/* Nút xem thông tin đồ án */}
-        <Popover content={projectInfoContent} title="Thông tin kiến trúc ứng dụng" trigger="hover">
-          <Button icon={<InfoCircleOutlined />} type="text" shape="circle" />
-        </Popover>
-
-        {/* Nút Đổi giao diện Dark / Light */}
         <Tooltip title={isDarkMode ? 'Chuyển sang giao diện Sáng' : 'Chuyển sang giao diện Tối'}>
           <Button
             icon={isDarkMode ? <SunOutlined /> : <MoonOutlined />}
@@ -109,7 +83,6 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({
           />
         </Tooltip>
 
-        {/* Nút Khôi phục dữ liệu mẫu */}
         <Tooltip title="Tải lại danh sách dữ liệu mẫu từ API giả lập">
           <Button
             icon={<ReloadOutlined />}
@@ -120,7 +93,6 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({
           </Button>
         </Tooltip>
 
-        {/* Nút Thêm bài tập mới (Yêu cầu 2) */}
         <Button
           type="primary"
           icon={<PlusOutlined />}

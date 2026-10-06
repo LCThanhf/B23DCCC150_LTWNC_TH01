@@ -7,7 +7,6 @@ import { withUrgencyHighlight } from './hoc/withUrgencyHighlight';
 
 const { Text } = Typography;
 
-// Áp dụng HOC cho DeadlineCard để tạo hiệu ứng cảnh báo khẩn cấp (Buổi 2: HOC Pattern)
 const HighlightedDeadlineCard = withUrgencyHighlight(DeadlineCard);
 
 interface AssignmentListProps {
@@ -29,7 +28,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
   onAddNew,
   onResetFilter,
 }) => {
-  // Trạng thái đang tải dữ liệu (Loading Skeleton)
   if (loading) {
     return (
       <Row gutter={[16, 16]}>
@@ -44,7 +42,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
     );
   }
 
-  // Danh sách rỗng
   if (assignments.length === 0) {
     return (
       <Card
@@ -87,7 +84,6 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
       <Row gutter={[16, 16]}>
         {assignments.map((assignment) => (
           <Col xs={24} sm={12} lg={8} key={assignment.id}>
-            {/* Sử dụng Compound Component: DeadlineCard kết hợp HOC withUrgencyHighlight */}
             <HighlightedDeadlineCard
               assignment={assignment}
               onToggleComplete={onToggleComplete}
@@ -95,22 +91,13 @@ export const AssignmentList: React.FC<AssignmentListProps> = ({
               onEdit={onEdit}
             >
               <div>
-                {/* 1. Header: Môn học và Mức độ ưu tiên */}
                 <DeadlineCard.Header />
-
-                {/* 2. Tiêu đề bài tập + Checkbox hoàn thành */}
                 <DeadlineCard.Title />
-
-                {/* 3. Badge đếm ngược: "Còn X ngày" hoặc "Quá hạn Y ngày" (Yêu cầu 6) */}
                 <div style={{ marginBottom: '10px' }}>
                   <DeadlineCard.Countdown />
                 </div>
-
-                {/* 4. Hạn nộp & Ghi chú */}
                 <DeadlineCard.Meta />
               </div>
-
-              {/* 5. Nút thao tác hoàn thành, sửa, xoá */}
               <DeadlineCard.Actions />
             </HighlightedDeadlineCard>
           </Col>

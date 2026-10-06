@@ -35,7 +35,6 @@ const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
 
-  // Redux States
   const {
     items: assignments,
     status,
@@ -49,19 +48,16 @@ const App: React.FC = () => {
 
   const { isDarkMode, isCreateModalOpen, editingAssignment } = useAppSelector((state) => state.ui);
 
-  // Yêu cầu 7: Khởi động app, lấy danh sách mẫu ban đầu từ 1 API giả lập qua createAsyncThunk
   useEffect(() => {
     dispatch(fetchAssignmentsThunk());
   }, [dispatch]);
 
-  // Thông báo khi có lỗi
   useEffect(() => {
     if (error) {
       messageApi.error(error);
     }
   }, [error, messageApi]);
 
-  // Custom Hook nâng cao (Buổi 2): Lọc, tìm kiếm, phân loại và thống kê
   const { filteredAssignments, stats, availableSubjects } = useAssignmentFilter({
     assignments,
     filterStatus,
@@ -71,7 +67,6 @@ const App: React.FC = () => {
     sortDirection,
   });
 
-  // Xử lý đánh dấu hoàn thành / bỏ đánh dấu (Yêu cầu 3)
   const handleToggleComplete = async (id: string, currentCompleted: boolean) => {
     try {
       await dispatch(updateAssignmentThunk({ id, completed: !currentCompleted })).unwrap();
@@ -83,7 +78,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Xử lý xoá bài tập (Yêu cầu 4)
   const handleDeleteAssignment = async (id: string) => {
     try {
       await dispatch(deleteAssignmentThunk(id)).unwrap();
@@ -93,7 +87,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Xử lý submit form thêm mới hoặc chỉnh sửa (Yêu cầu 2)
   const handleFormSubmit = async (values: CreateAssignmentDTO) => {
     try {
       if (editingAssignment) {
@@ -114,7 +107,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Khôi phục dữ liệu mẫu ban đầu
   const handleResetMockData = async () => {
     try {
       await dispatch(resetAssignmentsThunk()).unwrap();
@@ -145,7 +137,6 @@ const App: React.FC = () => {
           transition: 'background-color 0.3s ease',
         }}
       >
-        {/* Thanh Navigation Header */}
         <HeaderNavbar
           isDarkMode={isDarkMode}
           onToggleTheme={() => dispatch(toggleTheme())}
@@ -154,7 +145,6 @@ const App: React.FC = () => {
           resetLoading={isLoading}
         />
 
-        {/* Nội dung chính ứng dụng */}
         <Content
           style={{
             maxWidth: '1200px',
@@ -163,10 +153,8 @@ const App: React.FC = () => {
             padding: '24px 16px',
           }}
         >
-          {/* 1. Thống kê tổng quan */}
           <DashboardStats stats={stats} />
 
-          {/* 2. Thanh lọc theo trạng thái, tìm kiếm, lọc theo môn, sắp xếp (Yêu cầu 5) */}
           <AssignmentFilterBar
             filterStatus={filterStatus}
             onFilterChange={(status) => dispatch(setFilterStatus(status))}
@@ -184,7 +172,6 @@ const App: React.FC = () => {
             }}
           />
 
-          {/* 3. Danh sách bài tập qua Compound Component (Yêu cầu 1, 3, 4, 6) */}
           <AssignmentList
             assignments={filteredAssignments}
             loading={isLoading}
@@ -196,7 +183,6 @@ const App: React.FC = () => {
           />
         </Content>
 
-        {/* Footer */}
         <Footer
           style={{
             textAlign: 'center',
@@ -207,15 +193,10 @@ const App: React.FC = () => {
           }}
         >
           <Text type="secondary" style={{ fontSize: '13px' }}>
-            <strong>Student Deadline Tracker</strong> — Đồ án môn Lập trình Web nâng cao
-          </Text>
-          <br />
-          <Text type="secondary" style={{ fontSize: '12px' }}>
-            Áp dụng: TypeScript Nâng cao • React Compound Component & HOC • Redux Toolkit (RTK) • Ant Design
+            Student Deadline Tracker
           </Text>
         </Footer>
 
-        {/* Modal Thêm & Chỉnh sửa bài tập (Yêu cầu 2) */}
         <AssignmentFormModal
           open={isCreateModalOpen}
           onClose={() => dispatch(closeModal())}

@@ -9,17 +9,10 @@ import type {
 } from '../../types/assignment';
 import { assignmentMockApi } from './mockApi';
 
-/**
- * ============================================================================
- * BUỔI 3: REDUX TOOLKIT + TYPESCRIPT (FEATURE-BASED STRUCTURE & ASYNC THUNK)
- * ============================================================================
- */
-
 export interface AssignmentState {
   items: Assignment[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
-  // Filter & Search states
   filterStatus: FilterStatus;
   searchQuery: string;
   selectedSubject: string | null;
@@ -38,11 +31,6 @@ const initialState: AssignmentState = {
   sortDirection: 'asc',
 };
 
-// --- createAsyncThunk Actions ---
-
-/**
- * Thunk 1: Khởi động app, lấy danh sách mẫu ban đầu từ API giả lập (Yêu cầu 7)
- */
 export const fetchAssignmentsThunk = createAsyncThunk<
   Assignment[],
   void,
@@ -57,9 +45,6 @@ export const fetchAssignmentsThunk = createAsyncThunk<
   }
 });
 
-/**
- * Thunk 2: Thêm bài tập mới (Yêu cầu 2)
- */
 export const createAssignmentThunk = createAsyncThunk<
   Assignment,
   CreateAssignmentDTO,
@@ -74,9 +59,6 @@ export const createAssignmentThunk = createAsyncThunk<
   }
 });
 
-/**
- * Thunk 3: Cập nhật / Đánh dấu hoàn thành bài tập (Yêu cầu 3)
- */
 export const updateAssignmentThunk = createAsyncThunk<
   Assignment,
   UpdateAssignmentDTO,
@@ -91,9 +73,6 @@ export const updateAssignmentThunk = createAsyncThunk<
   }
 });
 
-/**
- * Thunk 4: Xoá bài tập (Yêu cầu 4)
- */
 export const deleteAssignmentThunk = createAsyncThunk<
   string,
   string,
@@ -108,9 +87,6 @@ export const deleteAssignmentThunk = createAsyncThunk<
   }
 });
 
-/**
- * Thunk 5: Khôi phục dữ liệu mẫu ban đầu
- */
 export const resetAssignmentsThunk = createAsyncThunk<
   Assignment[],
   void,
@@ -125,13 +101,10 @@ export const resetAssignmentsThunk = createAsyncThunk<
   }
 });
 
-// --- Slice Definition ---
-
 export const assignmentSlice = createSlice({
   name: 'assignments',
   initialState,
   reducers: {
-    // Optimistic toggle hoặc sync toggle
     toggleAssignmentImmediate: (state, action: PayloadAction<string>) => {
       const item = state.items.find((a) => a.id === action.payload);
       if (item) {
@@ -162,7 +135,6 @@ export const assignmentSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // 1. Fetch Assignments
     builder
       .addCase(fetchAssignmentsThunk.pending, (state) => {
         state.status = 'loading';
@@ -175,19 +147,13 @@ export const assignmentSlice = createSlice({
       .addCase(fetchAssignmentsThunk.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload ?? 'Không thể tải danh sách bài tập';
-      });
-
-    // 2. Create Assignment
-    builder
+      })
       .addCase(createAssignmentThunk.fulfilled, (state, action) => {
         state.items.unshift(action.payload);
       })
       .addCase(createAssignmentThunk.rejected, (state, action) => {
         state.error = action.payload ?? 'Thêm bài tập thất bại';
-      });
-
-    // 3. Update / Toggle Assignment
-    builder
+      })
       .addCase(updateAssignmentThunk.fulfilled, (state, action) => {
         const index = state.items.findIndex((item) => item.id === action.payload.id);
         if (index !== -1) {
@@ -196,19 +162,13 @@ export const assignmentSlice = createSlice({
       })
       .addCase(updateAssignmentThunk.rejected, (state, action) => {
         state.error = action.payload ?? 'Cập nhật bài tập thất bại';
-      });
-
-    // 4. Delete Assignment
-    builder
+      })
       .addCase(deleteAssignmentThunk.fulfilled, (state, action) => {
         state.items = state.items.filter((item) => item.id !== action.payload);
       })
       .addCase(deleteAssignmentThunk.rejected, (state, action) => {
         state.error = action.payload ?? 'Xoá bài tập thất bại';
-      });
-
-    // 5. Reset Assignments
-    builder
+      })
       .addCase(resetAssignmentsThunk.pending, (state) => {
         state.status = 'loading';
       })
