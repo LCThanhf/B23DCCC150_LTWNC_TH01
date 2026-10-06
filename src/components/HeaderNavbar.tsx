@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Space, Tag, Tooltip, Typography } from 'antd';
+import { Button, Space, Tooltip, Typography } from 'antd';
 import {
   CheckSquareFilled,
   MoonOutlined,
@@ -60,14 +60,9 @@ export const HeaderNavbar: React.FC<HeaderNavbarProps> = ({
           <CheckSquareFilled />
         </div>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Title level={4} style={{ margin: 0, letterSpacing: '-0.3px' }}>
-              Student Deadline Tracker
-            </Title>
-            <Tag color="cyan" style={{ borderRadius: '4px', margin: 0, fontSize: '11px' }}>
-              LTWNC
-            </Tag>
-          </div>
+          <Title level={4} style={{ margin: 0, letterSpacing: '-0.3px' }}>
+            Student Deadline Tracker
+          </Title>
           <Text type="secondary" style={{ fontSize: '12px' }}>
             Quản lý deadline bài tập & tiến độ học tập cá nhân
           </Text>

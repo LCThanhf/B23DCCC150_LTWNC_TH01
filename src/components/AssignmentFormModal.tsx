@@ -12,7 +12,6 @@ import {
   BookOutlined,
   CalendarOutlined,
   EditOutlined,
-  FlagFilled,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import type { Assignment, CreateAssignmentDTO, PriorityLevel } from '../types/assignment';
@@ -167,17 +166,14 @@ export const AssignmentFormModal: React.FC<AssignmentFormModalProps> = ({
             rules={[{ required: true, message: 'Vui lòng chọn độ ưu tiên!' }]}
           >
             <Radio.Group buttonStyle="solid" style={{ width: '100%', display: 'flex' }}>
-              <Radio.Button value="LOW" style={{ flex: 1, textAlign: 'center', color: '#52c41a' }}>
-                <FlagFilled style={{ marginRight: 4 }} />
-                Thấp
+              <Radio.Button value="LOW" style={{ flex: 1, textAlign: 'center' }}>
+                <span style={{ color: '#52c41a' }}>● Thấp</span>
               </Radio.Button>
-              <Radio.Button value="MEDIUM" style={{ flex: 1, textAlign: 'center', color: '#faad14' }}>
-                <FlagFilled style={{ marginRight: 4 }} />
-                TB
+              <Radio.Button value="MEDIUM" style={{ flex: 1, textAlign: 'center' }}>
+                <span style={{ color: '#faad14' }}>● TB</span>
               </Radio.Button>
-              <Radio.Button value="HIGH" style={{ flex: 1, textAlign: 'center', color: '#ff4d4f' }}>
-                <FlagFilled style={{ marginRight: 4 }} />
-                Cao
+              <Radio.Button value="HIGH" style={{ flex: 1, textAlign: 'center' }}>
+                <span style={{ color: '#ff4d4f' }}>● Cao</span>
               </Radio.Button>
             </Radio.Group>
           </Form.Item>
